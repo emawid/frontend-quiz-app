@@ -1,0 +1,114 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+
+  --grey-500: #626c7f;
+  --grey-50: #f4f6fa;
+
+  /* Blue */
+  --blue-950: #2d3949;
+  --blue-900: #313e51;
+  --blue-850: #3b4d66;
+  --blue-500: #306aff;
+  --blue-300: #abc1e1;
+  --blue-100: #edf1f9;
+  --blue-50: #ebf0ff;
+
+  /* Green */
+  --green-500: #2fd887;
+  --green-100: #e0fdef;
+
+  /* Purple */
+  --purple-600: #a729f5;
+  --purple-100: #f6e7ff;
+
+  /* Orange */
+  --orange-400: #ff7e35;
+  --orange-50: #fff5ed;
+
+  /* Red */
+  --red-500: #ee5454;
+
+  /* Background-images mobile */
+  --background-image-mobile: url('./images/pattern-background-mobile-light.svg');
+
+  /* Background-images tablet */
+
+  --background-image-tablet: url('./images/pattern-background-tablet-light.svg');
+
+  /* Background-images desktop */
+  --background-image-desktop: url('./images/pattern-background-desktop-light.svg');
+
+  --body-background-color: var(--grey-50);
+
+  --toggle-icon-color: var(--grey-500);
+
+  --text-color-1: var(--blue-900);
+
+  --text-color-2: var(--grey-500);
+
+  --btn-background: var(--white);
+}
+
+body.dark {
+  --body-background-color: var(--blue-900);
+  --background-image-mobile: url('./images/pattern-background-mobile-dark.svg');
+  --toggle-icon-color: var(--white);
+  --text-color-1: var(--white);
+  --text-color-2: var(--blue-300);
+  --btn-background: var(--blue-850);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Page specific -  */
+main {
+  display: grid;
+  gap: 40px;
+}
+
+.btn-reset {
+  all: unset;
+  outline: revert;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--body-background-color);
+  background-image: var(--background-image-mobile);
+  background-repeat: no-repeat;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+@media (min-width: 768px) {
+  body.dark {
+    --background-image-tablet: url('./images/pattern-background-tablet-dark.svg');
+  }
+
+  body {
+    background-image: var(--background-image-tablet);
+  }
+}
+
+@media (min-width: 1440px) {
+  body.dark {
+    --background-image-desktop: url('./images/pattern-background-desktop-dark.svg');
+  }
+
+  body {
+    background-image: var(--background-image-desktop);
+  }
+}
