@@ -13,10 +13,10 @@
     <title>Frontend Mentors | Frontend Quiz App</title>
   </head>
   <body>
-    <header class="container">
-      <div class="toggle-container">
+    <header class="header container">
+      <div class="toggle">
         <svg
-          class="toggle-icon"
+          class="toggle__icon"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -26,12 +26,12 @@
             fill="var(--toggle-icon-color)"
             d="M12 1.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 1 1-1.5 0v-1.5A.75.75 0 0 1 12 1.5Zm0 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-1.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm9.75-2.25a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5h1.5ZM12 19.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 1 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75Zm-8.25-6.75a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5h1.5Zm.969-8.031a.75.75 0 0 1 1.062 0l1.5 1.5a.751.751 0 0 1-1.062 1.062l-1.5-1.5a.75.75 0 0 1 0-1.062Zm1.062 14.562a.75.75 0 1 1-1.062-1.06l1.5-1.5a.75.75 0 1 1 1.062 1.06l-1.5 1.5Zm13.5-14.562a.75.75 0 0 0-1.062 0l-1.5 1.5a.751.751 0 0 0 1.062 1.062l1.5-1.5a.75.75 0 0 0 0-1.062Zm-1.062 14.562a.75.75 0 0 0 1.062-1.06l-1.5-1.5a.75.75 0 0 0-1.062 1.06l1.5 1.5Z" />
         </svg>
-        <div class="toggle-switch">
-          <input type="checkbox" id="theme-toggle" />
-          <label for="theme-toggle"></label>
+        <div class="toggle__switch">
+          <input class="toggle__checkbox" type="checkbox" id="theme-toggle" />
+          <label class="toggle__label" for="theme-toggle"></label>
         </div>
         <svg
-          class="toggle-icon"
+          class="toggle__icon"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -43,60 +43,63 @@
         </svg>
       </div>
     </header>
-    <main class="container">
-      <div class="text-content">
-        <h1 class="text-preset-2-mobile-light">
+    <main class="main container">
+      <div class="main__intro">
+        <h1 class="main__title text-preset-2-mobile-light">
           Welcome to the <br />
-          <strong class="text-preset-2-mobile-medium">Frontend Quiz!</strong>
+          <strong class="main__title--highlight text-preset-2-mobile-medium"
+            >Frontend Quiz!</strong
+          >
         </h1>
-        <p class="text-preset-5-mobile-italic">
+        <p class="main__subtitle text-preset-5-mobile-italic">
           Pick a subject to get started.
         </p>
       </div>
 
-      <ul>
-        <li>
-          <button class="btn-reset text-preset-4-mobile btn">
+      <ul class="quiz">
+        <li class="quiz__item">
+          <button class="btn-reset subject text-preset-4-mobile">
             <img
-              class="subject-icon subject-icon--html"
+              class="subject__icon subject__icon--html"
               src="./src/images/icon-html.svg"
               width="40"
               height="40"
               alt="html-icon" />
-            <p>HTML</p>
+            <span class="subject__name">HTML</span>
           </button>
         </li>
-        <li>
-          <button class="btn-reset text-preset-4-mobile btn">
+
+        <li class="quiz__item">
+          <button class="subject text-preset-4-mobile btn-reset">
             <img
-              class="subject-icon subject-icon--css"
+              class="subject__icon subject__icon--css"
               src="./src/images/icon-css.svg"
               width="40"
               height="40"
               alt="css-icon" />
-            <p>CSS</p>
+            <span class="subject__name">CSS</span>
           </button>
         </li>
-        <li>
-          <button class="btn-reset text-preset-4-mobile btn">
+        <li class="quiz__item">
+          <button class="subject text-preset-4-mobile btn-reset">
             <img
-              class="subject-icon subject-icon--js"
+              class="subject__icon subject__icon--js"
               src="./src/images/icon-js.svg"
               width="40"
               height="40"
               alt="javascript-icon" />
-            <p>Javascript</p>
+            <span class="subject__name">Javascript</span>
           </button>
         </li>
-        <li>
-          <button class="btn-reset text-preset-4-mobile btn">
+        <li class="quiz__item">
+          <button class="subject text-preset-4-mobile btn-reset">
             <img
-              class="subject-icon subject-icon--accessibility"
+              class="subject__icon subject__icon--accessibility"
               src="./src/images/icon-accessibility.svg"
               width="40"
               height="40"
               alt="icon" />
-            <p>Accessibility</p>
+            <span class="subject__name">Accessibility</span>
           </button>
         </li>
       </ul>

@@ -1,0 +1,47 @@
+/* Main intro landing page */
+
+
+.main__intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-inline: 0 auto;
+}
+
+.main__title {
+  color: var(--text-color-1);
+  margin: 0;
+  padding: 0;
+}
+
+.main__subtitle {
+  color: var(--text-color-2);
+  margin: 0;
+  padding: 0;
+}
+
+/* Subject list */
+
+.quiz {
+  display: grid;
+  list-style: none;
+  padding-left: 0;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+.subject {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-color-1);
+  width: 100%;
+  padding: 16px;
+  background-color: var(--btn-background);
+  border-radius: 12px;
+}
+
+.subject:hover {
+  cursor: pointer;
+}

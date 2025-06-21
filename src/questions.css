@@ -1,1 +1,185 @@
-/* Layout */
+/* Header */
+
+/* .header re-used from index.html*/
+
+.header--question {
+  justify-content: space-between;
+}
+
+.header__topic {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.header__topic-name {
+  color: var(--text-color-1);
+}
+
+.main__progress {
+  margin-bottom: 16px;
+  color: var(--text-color-2);
+}
+
+.main__question {
+  margin-bottom: 24px;
+  color: var(--text-color-1);
+}
+
+.main__range-wrapper {
+  height: 16px;
+  width: auto;
+  background-color: var(--btn-background);
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  padding-inline: 4px;
+}
+
+.main__quiz-range {
+  -webkit-appearance: none; /* Remove default styling (important!) */
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    var(--purple-600) 50%,
+    var(--white) 100%
+  );
+}
+
+/* Track styling for Webkit browsers (Chrome, Safari) */
+.main__quiz-range::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 8px; /* Set the track height */
+  border-radius: 4px; /* Round the track corners */
+}
+
+/* Track styling for Firefox */
+.main__quiz-range::-moz-range-track {
+  background: var(--white); /* Set the track color for Firefox */
+  height: 8px; /* Set the track height */
+  border-radius: 4px; /* Round the track corners */
+}
+
+/* Filled part for firefox */
+.main__quiz-range::-moz-range-progress {
+  height: 8px;
+  background-color: var(--purple-600);
+  border-radius: 4px;
+}
+
+/* Thumb styling for Webkit browsers */
+.main__quiz-range::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb appearance */
+  appearance: none; /* Remove default thumb appearance (standard) */
+  width: 0; /* Set thumb width */
+  height: 0; /* Set thumb height */
+}
+
+/* Thumb styling for Firefox */
+.main__quiz-range::-moz-range-thumb {
+  width: 0; /* Set thumb width */
+  height: 0; /* Set thumb height */
+  background: transparent; /* Thumb background color */
+  border: none; /* Thumb border color and thickness */
+}
+
+/* Remove outline on focus for accessibility and cleaner look */
+.main__quiz-range:focus {
+  outline: none; /* Remove default outline when focused */
+}
+
+/* Answer options */
+
+/* Same as ul landing.css? */
+.main__options {
+  display: grid;
+  list-style: none;
+  padding-left: 0;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+.main__option-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-color-1);
+  width: 100%;
+  padding: 16px;
+  background-color: var(--btn-background);
+  border-radius: 12px;
+}
+
+.main__option-btn:hover,
+.main__option-btn:active {
+  outline: 3px solid var(--purple-600);
+}
+
+.main__option-letter {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  color: var(--grey-500);
+
+  background-color: var(--grey-50);
+}
+
+.main__option-text {
+  color: var(--text-color-1);
+}
+
+.main__option--submit {
+  text-align: center;
+  display: initial;
+  color: var(--white);
+  background-color: var(--purple-600);
+  height: 56px;
+}
+
+@media (min-width: 768px) {
+  .header__topic-name {
+    font-size: 28px;
+  }
+
+  .main__question {
+    font-size: 36px;
+  }
+
+  .main__progress {
+    font-size: 20px;
+  }
+
+  .main__option-letter,
+  .main__option-text,
+  .main__option--submit {
+    font-size: 28px;
+  }
+
+  .main__option-btn {
+    height: 88px;
+  }
+
+  .main__option--submit {
+    height: 92px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main__option-btn {
+    height: 104px;
+  }
+
+  .main__option--submit {
+    height: 92px;
+  }
+
+  .main__question {
+    margin-bottom: 184px;
+  }
+}

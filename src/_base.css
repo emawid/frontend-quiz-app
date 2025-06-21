@@ -61,12 +61,8 @@ body.dark {
 
 * {
   box-sizing: border-box;
-}
-
-/* Page specific -  */
-main {
-  display: grid;
-  gap: 40px;
+  margin: 0;
+  padding: 0;
 }
 
 .btn-reset {
@@ -74,16 +70,21 @@ main {
   outline: revert;
   box-sizing: border-box;
 }
+.container {
+  max-width: 1157px;
+  width: 100%;
+  margin-inline: auto;
+  padding: 0 1.5rem;
+}
 
 body {
-  margin: 0;
   font-family: system-ui;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
   background-color: var(--body-background-color);
   background-image: var(--background-image-mobile);
   background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  gap: 32px;
 }
 
 input,
@@ -93,7 +94,20 @@ button {
   font-family: inherit;
 }
 
+.main {
+  display: grid;
+  gap: 40px;
+}
+
 @media (min-width: 768px) {
+  .container {
+    padding: 0 4rem;
+  }
+
+  .main {
+    gap: 64px;
+  }
+
   body.dark {
     --background-image-tablet: url('./images/pattern-background-tablet-dark.svg');
   }
@@ -104,6 +118,10 @@ button {
 }
 
 @media (min-width: 1440px) {
+  .container {
+    padding: 0;
+  }
+
   body.dark {
     --background-image-desktop: url('./images/pattern-background-desktop-dark.svg');
   }
@@ -111,4 +129,12 @@ button {
   body {
     background-image: var(--background-image-desktop);
   }
+
+  .main {
+    display: grid;
+    grid-template-columns: 0.45fr 0.55fr;
+    gap: 128px;
+  }
+
+  
 }

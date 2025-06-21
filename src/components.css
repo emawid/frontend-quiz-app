@@ -1,31 +1,26 @@
 /* Container to align sections */
 
-.container {
-  min-width: 327px;
-  margin-inline: auto;
-}
-
 /* Header */
 
-header {
-  height: 104px;
-  position: relative;
+.header {
+  height: 72px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-/* Light/Dark Mode Button */
+/* Light/Dark Toggle */
 
-.toggle-container {
-  position: absolute;
+.toggle {
   top: 26px;
   right: 0;
-  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
 }
 
-.toggle-switch {
+.toggle__switch {
   display: inline-block;
   position: relative;
   width: 32px;
@@ -34,13 +29,13 @@ header {
   padding: 4px;
 }
 
-.toggle-switch input {
+.toggle__checkbox {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.toggle-switch label {
+.toggle__label {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -52,7 +47,7 @@ header {
   transition: background 0.2s;
 }
 
-.toggle-switch label::after {
+.toggle__label::after {
   content: '';
   position: absolute;
   left: 4px;
@@ -64,124 +59,67 @@ header {
   transition: transform 0.2s;
 }
 
-.toggle-switch input:checked + label::after {
+.toggle__checkbox:checked + .toggle__label::after {
   transform: translateX(12px);
-}
-
-/* Main text content */
-
-h1,
-p {
-  margin: 0;
-  padding: 0;
-}
-
-.text-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-inline: 0 auto;
-}
-
-h1 {
-  color: var(--text-color-1);
-}
-
-h1 + p {
-  color: var(--text-color-2);
-}
-
-/* Subject list */
-
-ul {
-  display: grid;
-  list-style: none;
-  padding-left: 0;
-  gap: 16px;
-  width: 100%;
-  margin: 0;
-}
-
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  color: var(--text-color-1);
-  width: 100%;
-  padding: 16px;
-  background-color: var(--btn-background);
-  border-radius: 12px;
-}
-
-.btn:hover {
-  cursor: pointer;
 }
 
 /* Subject icons */
 
-.subject-icon {
+.subject__icon {
   border-radius: 6px;
   padding: 6px;
 }
 
-.subject-icon--html {
+.subject__icon--html {
   background-color: var(--orange-50);
 }
 
-.subject-icon--css {
+.subject__icon--css {
   background-color: var(--green-100);
 }
 
-.subject-icon--js {
+.subject__icon--js {
   background-color: var(--blue-50);
 }
 
-.subject-icon--accessibility {
+.subject__icon--accessibility {
   background-color: var(--purple-100);
 }
 
 @media (min-width: 768px) {
-  .container {
-    min-width: 640px;
-  }
-
-  .toggle-container {
+  .toggle {
     gap: 16px;
     top: 54px;
   }
 
-  main {
-    gap: 64px;
-  }
-
-  header {
+  .header {
     height: 129px;
   }
 
-  .toggle-icon {
+  .toggle__icon {
     width: 24px;
     height: auto;
   }
 
   /* Toggle switch */
-  .toggle-switch {
+  .toggle__switch {
     width: 48px;
     height: 28px;
   }
 
-  .toggle-switch label {
+  .toggle__label {
     width: 48px;
     height: 28px;
     border-radius: 20px;
   }
 
-  .toggle-switch label::after {
+  .toggle__label::after {
     width: 20px;
     height: 20px;
     border-radius: 20px;
   }
 
-  .toggle-switch input:checked + label::after {
+  .toggle__checkbox:checked + .toggle__label::after {
     transform: translateX(20px);
   }
 
@@ -190,49 +128,42 @@ ul {
     font-size: 64px;
   }
 
-  p.text-preset-5-mobile-italic {
+  .main__subtitle {
     font-size: 20px;
   }
 
-  ul {
+  .quiz {
     gap: 24px;
   }
 
-  .btn {
+  .subject {
     gap: 32px;
     font-size: 28px;
+    height: 88px;
   }
 
-  .subject-icon {
+  .subject__icon {
     width: 56px;
     height: auto;
   }
 }
 
 @media (min-width: 1440px) {
-  .container {
-    min-width: 1157px;
-  }
-  main {
-    display: grid;
-    grid-template-columns: 1fr calc(564 / 1157 * 100%);
-    gap: 128px;
-  }
-
-  header {
+  .header {
     height: 224px;
   }
 
-  .toggle-container {
+  .toggle {
     top: 97px;
   }
 
-  .text-content {
+  .main__intro {
     gap: 48px;
     height: fit-content;
   }
 
-  .btn {
+  .subject {
     padding: 24px;
+    height: 104px;
   }
 }
