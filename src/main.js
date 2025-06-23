@@ -13,9 +13,73 @@ const range = document.querySelector('.main__quiz-range');
 function updateRangeBackground() {
   const min = range.min ? range.min : 0;
   const max = range.max ? range.max : 100;
-  const val = range.value;
+  // const val = range.value;
+  const val = 70; //TODO: replace with variable
   const percent = ((val - min) / (max - min)) * 100;
   range.style.background = `linear-gradient(to right, var(--purple-600) ${percent}%, var(--btn-background) ${percent}%)`;
 }
-range.addEventListener('input', updateRangeBackground);
+
 updateRangeBackground(); // Call once to set initial state
+
+//Quiz data
+
+async function loadQuizData(subject) {
+  try {
+    const response = await fetch('/public/data.json');
+    if (!response.ok) throw new Error('Network response was not ok');
+    const quizData = await response.json();
+
+    const { title, icon, questions } =
+      quizData.quizzes.find(element => element.title === subject) || {};
+
+    popoulateTitle(title);
+    populateIcon(icon, title);
+    populateQuestion(questions);
+    populateOptions(questions);
+  } catch (error) {
+    console.log('Error fetching data:', error);
+  }
+}
+
+loadQuizData('CSS'); //TODO: replace with variable
+
+// console.log(quizData);
+
+function popoulateTitle(title) {
+  const header = document.querySelector('.header__topic-name');
+  header.textContent = title;
+}
+
+// src="./src/images/icon-accessibility.svg"
+
+function populateIcon(icon, title) {
+  const iconImage = document.querySelector('.subject__icon');
+  iconImage.src = `./src/images/${icon.split('/').pop()}`;
+  iconImage.classList.remove(iconImage.classList.item(1));
+  iconImage.classList.add(`subject__icon--${title.toLowerCase()}`);
+}
+
+function populateQuestion(questions) {
+  const question = document.querySelector('.main__question');
+  question.textContent = questions[0].question;
+}
+
+function populateOptions(questions) {
+  const optionElements = document.querySelectorAll('.main__option-text');
+
+  console.log(questions);
+
+  //Render each answer option
+  optionElements.forEach((element, index) => {
+    element.textContent = questions[0].options[index];
+  });
+}
+
+const submitButton = document.querySelector('.main__option--submit');
+
+function submitAnswer(e) {
+  e.preventDefault();
+  console.log(e.target);
+}
+
+submitButton.addEventListener('click', submitAnswer);

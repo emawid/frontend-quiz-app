@@ -1,6 +1,5 @@
 /* Main intro landing page */
 
-
 .main__intro {
   display: grid;
   grid-template-columns: 1fr;
@@ -32,6 +31,7 @@
 }
 
 .subject {
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 16px;

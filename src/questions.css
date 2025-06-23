@@ -113,6 +113,10 @@
   border-radius: 12px;
 }
 
+.main__option-btn:hover {
+  cursor: pointer;
+}
+
 .main__option-btn:hover,
 .main__option-btn:active {
   outline: 3px solid var(--purple-600);
