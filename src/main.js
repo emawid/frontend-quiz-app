@@ -23,14 +23,18 @@ updateRangeBackground(); // Call once to set initial state
 
 //Quiz data
 
+let title = null,
+  icon = null,
+  questions = null;
+
 async function loadQuizData(subject) {
   try {
     const response = await fetch('/public/data.json');
     if (!response.ok) throw new Error('Network response was not ok');
     const quizData = await response.json();
 
-    const { title, icon, questions } =
-      quizData.quizzes.find(element => element.title === subject) || {};
+    ({ title, icon, questions } =
+      quizData.quizzes.find(element => element.title === subject) || {});
 
     popoulateTitle(title);
     populateIcon(icon, title);
@@ -67,19 +71,57 @@ function populateQuestion(questions) {
 function populateOptions(questions) {
   const optionElements = document.querySelectorAll('.main__option-text');
 
-  console.log(questions);
-
   //Render each answer option
   optionElements.forEach((element, index) => {
     element.textContent = questions[0].options[index];
   });
 }
 
+//Validate the form when submitted
+const form = document.querySelector('#quiz-form');
 const submitButton = document.querySelector('.main__option--submit');
 
-function submitAnswer(e) {
+const errorMessage = document.querySelector('.main__error');
+
+function validateForm(e) {
+  //prevent browser from refreshing the page
   e.preventDefault();
-  console.log(e.target);
+
+  const checkedRadio = document.querySelector('.main__option-radio:checked');
+
+  //Show error message if no option selected
+  if (!checkedRadio) {
+    errorMessage.classList.remove('main__error--hidden');
+    return;
+  }
+  //validate the correct answer
+  const correctAnswer = questions[0].answer;
+  const correctIndex = questions[0].options.findIndex(
+    option => option === questions[0].answer
+  );
+  const optionElements = document.querySelectorAll('.main__option-btn');
+  const correctElement = optionElements[correctIndex];
+
+  console.log(correctElement);
+
+  const checkedRadioLabel = checkedRadio.closest('label');
+  const checkedRadioButton =
+    checkedRadioLabel.querySelector('.main__option-btn');
+  const answer =
+    checkedRadioLabel.querySelector('.main__option-text').textContent;
+
+  if (answer === correctAnswer) {
+    console.log('answer is correct');
+    correctElement.classList.add('main__option-btn--correct');
+    submitButton.textContent = 'Next Question';
+  } else {
+    console.log('answer is incorrect');
+    checkedRadioButton.classList.add('main__option-btn--incorrect');
+    correctElement.classList.add('main__option-btn--correct');
+    submitButton.textContent = 'Next Question';
+  }
+  //Remove error message
+  errorMessage.classList.add('main__error--hidden');
 }
 
-submitButton.addEventListener('click', submitAnswer);
+form.addEventListener('submit', validateForm);

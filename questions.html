@@ -65,37 +65,79 @@
             value="30" />
         </div>
       </div>
-      <ul class="main__options text-preset-4-mobile">
-        <li class="main__option">
-          <button class="main__option-btn btn-reset">
-            <div class="main__option-letter">A</div>
-            <span class="main__option-text">4.5 : 1</span>
-          </button>
-        </li>
-        <li class="main__option main__option--selected">
-          <button class="main__option-btn btn-reset">
-            <div class="main__option-letter">B</div>
-            <span class="main__option-text">4.5 : 1</span>
-          </button>
-        </li>
-        <li class="main__option">
-          <button class="main__option-btn btn-reset">
-            <div class="main__option-letter">C</div>
-            <span class="main__option-text">4.5 : 1</span>
-          </button>
-        </li>
-        <li class="main__option">
-          <button class="main__option-btn btn-reset">
-            <div class="main__option-letter">D</div>
-            <span class="main__option-text">4.5 : 1</span>
-          </button>
-        </li>
-        <li class="main__option">
-          <button class="main__option-btn main__option--submit btn-reset">
-            Submit Answer
-          </button>
-        </li>
-      </ul>
+      <form id="quiz-form" novalidate>
+        <ul class="main__options text-preset-4-mobile">
+          <li class="main__option">
+            <label>
+              <input
+                class="main__option-radio"
+                type="radio"
+                name="quiz-answer"
+                value="A"
+                required />
+              <span class="main__option-btn">
+                <span class="main__option-letter">A</span>
+                <span class="main__option-text">4.5 : 1</span>
+              </span>
+            </label>
+          </li>
+          <li class="main__option">
+            <label>
+              <input
+                class="main__option-radio"
+                type="radio"
+                name="quiz-answer"
+                value="B" />
+              <span class="main__option-btn">
+                <span class="main__option-letter">B</span>
+                <span class="main__option-text">4.5 : 1</span>
+              </span>
+            </label>
+          </li>
+          <li class="main__option">
+            <label>
+              <input
+                class="main__option-radio"
+                type="radio"
+                name="quiz-answer"
+                value="C" />
+              <span class="main__option-btn">
+                <span class="main__option-letter">C</span>
+                <span class="main__option-text">4.5 : 1</span>
+              </span>
+            </label>
+          </li>
+          <li class="main__option">
+            <label>
+              <input
+                class="main__option-radio"
+                type="radio"
+                name="quiz-answer"
+                value="D" />
+              <span class="main__option-btn">
+                <span class="main__option-letter">D</span>
+                <span class="main__option-text">4.5 : 1</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+        <button
+          type="submit"
+          class="main__option-btn main__option--submit btn-reset">
+          Submit Answer
+        </button>
+        <div class="main__error main__error--hidden">
+          <img
+            class="main__error-icon"
+            src="./src/images/icon-error.svg"
+            width="40"
+            height="40"
+            alt="warning" />
+          <span class="main__error-message text-preset-4-mobile"
+            >Please select an answer</span
+          >
+        </div>
+      </form>
     </main>
   </body>
 </html>

@@ -99,6 +99,8 @@ button {
   gap: 40px;
 }
 
+
+
 @media (min-width: 768px) {
   .container {
     padding: 0 4rem;
@@ -135,6 +137,4 @@ button {
     grid-template-columns: 0.45fr 0.55fr;
     gap: 128px;
   }
-
-  
 }
