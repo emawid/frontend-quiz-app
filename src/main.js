@@ -83,45 +83,72 @@ const submitButton = document.querySelector('.main__option--submit');
 
 const errorMessage = document.querySelector('.main__error');
 
+//Validate form
+
 function validateForm(e) {
-  //prevent browser from refreshing the page
   e.preventDefault();
 
+  //Elements
   const checkedRadio = document.querySelector('.main__option-radio:checked');
 
-  //Show error message if no option selected
+  //Show error message if no option selected and return
   if (!checkedRadio) {
-    errorMessage.classList.remove('main__error--hidden');
+    errorMessage.classList.remove('hidden');
     return;
   }
-  //validate the correct answer
+
+  // Elements continued
+  const checkedRadioLabel = checkedRadio.closest('label');
+  const checkedRadioButton =
+    checkedRadioLabel.querySelector('.main__option-btn');
+  const checkedRadioText =
+    checkedRadioLabel.querySelector('.main__option-text');
+  const answer = checkedRadioText.textContent;
+  const checkedRadioLetter = checkedRadioLabel.querySelector(
+    '.main__option-letter'
+  );
+  const checkedRadioIcon =
+    checkedRadioLabel.querySelector('.main__option-icon');
+
+  //Fetching the correct option and its index
   const correctAnswer = questions[0].answer;
   const correctIndex = questions[0].options.findIndex(
     option => option === questions[0].answer
   );
+
+  //Elements continued
   const optionElements = document.querySelectorAll('.main__option-btn');
+  const optionLetter = document.querySelectorAll('.main__option-letter');
+  const messageIcon = document.querySelectorAll('.main__option-icon');
+  console.log(messageIcon);
+
   const correctElement = optionElements[correctIndex];
+  const correctLetter = optionLetter[correctIndex];
+  const correctIcon = messageIcon[correctIndex];
+  console.log(correctIcon);
 
-  console.log(correctElement);
-
-  const checkedRadioLabel = checkedRadio.closest('label');
-  const checkedRadioButton =
-    checkedRadioLabel.querySelector('.main__option-btn');
-  const answer =
-    checkedRadioLabel.querySelector('.main__option-text').textContent;
-
+  //Validation logic
   if (answer === correctAnswer) {
-    console.log('answer is correct');
     correctElement.classList.add('main__option-btn--correct');
+    correctLetter.classList.add('main__option-letter--correct');
+
+    correctIcon.style.backgroundImage = "url('./src/images/icon-correct.svg')";
     submitButton.textContent = 'Next Question';
   } else {
-    console.log('answer is incorrect');
     checkedRadioButton.classList.add('main__option-btn--incorrect');
+    checkedRadioLetter.classList.add('main__option-letter--incorrect');
     correctElement.classList.add('main__option-btn--correct');
+    // correctLetter.classList.add('main__option-letter--correct');
+    correctIcon.style.backgroundImage = "url('./src/images/icon-correct.svg')";
+
+    checkedRadioIcon.style.backgroundImage =
+      "url('./src/images/icon-incorrect.svg')";
+    console.log(messageIcon);
     submitButton.textContent = 'Next Question';
   }
+
   //Remove error message
-  errorMessage.classList.add('main__error--hidden');
+  errorMessage.classList.add('hidden');
 }
 
 form.addEventListener('submit', validateForm);

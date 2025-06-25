@@ -105,7 +105,7 @@
 .main__option-btn {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
   color: var(--text-color-1);
   width: 100%;
   padding: 16px;
@@ -113,12 +113,31 @@
   border-radius: 12px;
 }
 
-.main__option-btn--correct {
+.main__option-radio:checked + .main__option-btn {
+  outline: 3px solid var(--purple-600);
+}
+
+.main__option-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.main__option-radio:checked + .main__option-btn.main__option-btn--correct {
   outline: 3px solid var(--green-500);
 }
 
-.main__option-btn--incorrect {
+.main__option-radio:checked + .main__option-btn.main__option-btn--incorrect {
   outline: 3px solid var(--red-500);
+}
+
+.main__option-icon {
+  background-image: '';
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .main__option-btn:hover {
@@ -138,8 +157,17 @@
   align-items: center;
   border-radius: 6px;
   color: var(--grey-500);
-
   background-color: var(--grey-50);
+}
+
+.main__option-letter--correct {
+  background-color: var(--green-500);
+  color: var(--white);
+}
+
+.main__option-letter--incorrect {
+  background-color: var(--red-500);
+  color: var(--white);
 }
 
 .main__option-text {
@@ -173,7 +201,7 @@
   margin-inline: auto;
 }
 
-.main__error--hidden {
+.hidden {
   display: none;
 }
 
@@ -206,6 +234,16 @@
 
   .main__error {
     font-size: 1.5rem;
+  }
+
+  .main__option-letter {
+    width: 56px;
+    height: 56px;
+  }
+
+  .main__option-icon {
+    width: 30px;
+    height: 30px;
   }
 
   @media (min-width: 1440px) {
