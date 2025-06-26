@@ -27,7 +27,9 @@ let title = null,
   icon = null,
   questions = null;
 
-async function loadQuizData(subject) {
+let nextQuestion = 0;
+
+async function loadQuizData(subject, question) {
   try {
     const response = await fetch('/public/data.json');
     if (!response.ok) throw new Error('Network response was not ok');
@@ -38,23 +40,19 @@ async function loadQuizData(subject) {
 
     popoulateTitle(title);
     populateIcon(icon, title);
-    populateQuestion(questions);
-    populateOptions(questions);
+    populateQuestion(questions, question);
+    populateOptions(questions, question);
   } catch (error) {
     console.log('Error fetching data:', error);
   }
 }
 
-loadQuizData('CSS'); //TODO: replace with variable
-
-// console.log(quizData);
+loadQuizData('JavaScript', nextQuestion); //TODO: replace with variable
 
 function popoulateTitle(title) {
   const header = document.querySelector('.header__topic-name');
   header.textContent = title;
 }
-
-// src="./src/images/icon-accessibility.svg"
 
 function populateIcon(icon, title) {
   const iconImage = document.querySelector('.subject__icon');
@@ -63,17 +61,17 @@ function populateIcon(icon, title) {
   iconImage.classList.add(`subject__icon--${title.toLowerCase()}`);
 }
 
-function populateQuestion(questions) {
+function populateQuestion(questions, currentQuestion) {
   const question = document.querySelector('.main__question');
-  question.textContent = questions[0].question;
+  question.textContent = questions[currentQuestion].question;
 }
 
-function populateOptions(questions) {
+function populateOptions(questions, currentQuestion) {
   const optionElements = document.querySelectorAll('.main__option-text');
 
   //Render each answer option
   optionElements.forEach((element, index) => {
-    element.textContent = questions[0].options[index];
+    element.textContent = questions[currentQuestion].options[index];
   });
 }
 
@@ -84,20 +82,21 @@ const submitButton = document.querySelector('.main__option--submit');
 const errorMessage = document.querySelector('.main__error');
 
 //Validate form
+let isSubmitMode = true;
 
 function validateForm(e) {
   e.preventDefault();
 
-  //Elements
+  //Checked radio element
   const checkedRadio = document.querySelector('.main__option-radio:checked');
 
-  //Show error message if no option selected and return
+  //Show error message if no option is selected and return
   if (!checkedRadio) {
     errorMessage.classList.remove('hidden');
     return;
   }
 
-  // Elements continued
+  // Checked elements continued
   const checkedRadioLabel = checkedRadio.closest('label');
   const checkedRadioButton =
     checkedRadioLabel.querySelector('.main__option-btn');
@@ -110,45 +109,87 @@ function validateForm(e) {
   const checkedRadioIcon =
     checkedRadioLabel.querySelector('.main__option-icon');
 
-  //Fetching the correct option and its index
-  const correctAnswer = questions[0].answer;
-  const correctIndex = questions[0].options.findIndex(
-    option => option === questions[0].answer
+  //Correct elemnts
+
+  const correctAnswer = questions[nextQuestion].answer;
+  const correctIndex = questions[nextQuestion].options.findIndex(
+    option => option === questions[nextQuestion].answer
   );
 
-  //Elements continued
   const optionElements = document.querySelectorAll('.main__option-btn');
   const optionLetter = document.querySelectorAll('.main__option-letter');
   const messageIcon = document.querySelectorAll('.main__option-icon');
-  console.log(messageIcon);
 
   const correctElement = optionElements[correctIndex];
   const correctLetter = optionLetter[correctIndex];
-  const correctIcon = messageIcon[correctIndex];
-  console.log(correctIcon);
+  let correctIcon = messageIcon[correctIndex];
 
-  //Validation logic
-  if (answer === correctAnswer) {
-    correctElement.classList.add('main__option-btn--correct');
-    correctLetter.classList.add('main__option-letter--correct');
+  if (isSubmitMode) {
+    //Validation logic
+    console.log(answer, correctAnswer);
+    if (answer === correctAnswer) {
+      correctElement.classList.add('main__option-btn--correct');
+      correctLetter.classList.add('main__option-letter--correct');
+      correctIcon.style.backgroundImage =
+        "url('./src/images/icon-correct.svg')";
+    } else {
+      checkedRadioButton.classList.add('main__option-btn--incorrect');
+      checkedRadioLetter.classList.add('main__option-letter--incorrect');
+      correctElement.classList.add('main__option-btn--correct');
+      correctIcon.style.backgroundImage =
+        "url('./src/images/icon-correct.svg')";
+      checkedRadioIcon.style.backgroundImage =
+        "url('./src/images/icon-incorrect.svg')";
+    }
 
-    correctIcon.style.backgroundImage = "url('./src/images/icon-correct.svg')";
     submitButton.textContent = 'Next Question';
+
+    //Remove error message
+    errorMessage.classList.add('hidden');
+    isSubmitMode = false;
   } else {
-    checkedRadioButton.classList.add('main__option-btn--incorrect');
-    checkedRadioLetter.classList.add('main__option-letter--incorrect');
-    correctElement.classList.add('main__option-btn--correct');
-    // correctLetter.classList.add('main__option-letter--correct');
-    correctIcon.style.backgroundImage = "url('./src/images/icon-correct.svg')";
+    //Load next question
+    const numberOfQuestions = questions.length;
+    nextQuestion += 1;
 
-    checkedRadioIcon.style.backgroundImage =
-      "url('./src/images/icon-incorrect.svg')";
-    console.log(messageIcon);
-    submitButton.textContent = 'Next Question';
+    //Reset UI for new question
+    resetUI();
+    correctIcon.style.backgroundImage = '';
+    checkedRadioIcon.style.backgroundImage = '';
+
+    populateQuestion(questions, nextQuestion);
+    populateOptions(questions, nextQuestion);
+
+    submitButton.textContent = 'Submit Answer';
+    isSubmitMode = true;
   }
-
-  //Remove error message
-  errorMessage.classList.add('hidden');
 }
 
 form.addEventListener('submit', validateForm);
+
+function resetUI() {
+  //remove all modifier classes from option buttons
+  document.querySelectorAll('.main__option-btn').forEach(btn => {
+    btn.classList.remove(
+      'main__option-btn--selected',
+      'main__option-btn--correct',
+      'main__option-btn--incorrect'
+    );
+  });
+
+  document.querySelectorAll('.main__option-letter').forEach(letter => {
+    console.log(letter);
+    letter.classList.remove(
+      'main__option-letter--correct',
+      'main__option-letter--incorrect'
+    );
+  });
+
+  //Uncheck all radio buttons
+  document.querySelectorAll('.main__option-radio').forEach(radio => {
+    radio.checked = false;
+  });
+
+  //Hide error messages
+  document.querySelector('main-error')?.classList.add('hidden');
+}
