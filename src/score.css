@@ -46,9 +46,7 @@
 }
 
 @media (min-width: 768px) {
-  .main__subtitle--score {
-    margin-bottom: 68px;
-  }
+  
 
   .main__card {
     gap: 32px;

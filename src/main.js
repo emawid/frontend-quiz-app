@@ -1,11 +1,8 @@
+import { populateTitle, populateIcon, themeToggle } from './utils.js';
+
 //Dark theme toggle on body
 
-const toggle = document.querySelector('#theme-toggle');
-
-toggle.addEventListener('change', () => {
-  document.body.classList.toggle('dark', toggle.checked);
-});
-
+themeToggle();
 //Slider
 
 const range = document.querySelector('.main__quiz-range');
@@ -14,7 +11,7 @@ function updateRangeBackground(value, minimum, maximum) {
   const min = minimum ? minimum : 0;
   const max = maximum ? maximum : 10;
   // const val = range.value;
-  const val = value; //TODO: replace with variable
+  const val = value;
   const percent = ((val - min) / (max - min)) * 100;
   range.style.background = `linear-gradient(to right, var(--purple-600) ${percent}%, var(--btn-background) ${percent}%)`;
 }
@@ -50,19 +47,7 @@ async function loadQuizData(subject, question) {
 const params = new URLSearchParams(window.location.search);
 const subject = params.get('subject');
 
-loadQuizData(subject, nextQuestion); //TODO: replace with variable
-
-function populateTitle(title) {
-  const header = document.querySelector('.header__topic-name');
-  header.textContent = title;
-}
-
-function populateIcon(icon, title) {
-  const iconImage = document.querySelector('.subject__icon');
-  iconImage.src = `./src/images/${icon.split('/').pop()}`;
-  iconImage.classList.remove(iconImage.classList.item(1));
-  iconImage.classList.add(`subject__icon--${title.toLowerCase()}`);
-}
+loadQuizData(subject, nextQuestion);
 
 function populateQuestion(questions, currentQuestion) {
   const question = document.querySelector('.main__question');
@@ -88,7 +73,6 @@ function populateProgress(number, questions) {
 //Validate the form when submitted
 const form = document.querySelector('#quiz-form');
 const submitButton = document.querySelector('.main__option--submit');
-
 const errorMessage = document.querySelector('.main__error');
 
 //Validate form
@@ -216,5 +200,3 @@ function resetUI() {
   //Hide error messages
   document.querySelector('main-error')?.classList.add('hidden');
 }
-
-//Pass score onto score.html
