@@ -10,46 +10,49 @@ toggle.addEventListener('change', () => {
 
 const range = document.querySelector('.main__quiz-range');
 
-function updateRangeBackground() {
-  const min = range.min ? range.min : 0;
-  const max = range.max ? range.max : 100;
+function updateRangeBackground(value, minimum, maximum) {
+  const min = minimum ? minimum : 0;
+  const max = maximum ? maximum : 10;
   // const val = range.value;
-  const val = 70; //TODO: replace with variable
+  const val = value; //TODO: replace with variable
   const percent = ((val - min) / (max - min)) * 100;
   range.style.background = `linear-gradient(to right, var(--purple-600) ${percent}%, var(--btn-background) ${percent}%)`;
 }
-
-updateRangeBackground(); // Call once to set initial state
 
 //Quiz data
 
 let title = null,
   icon = null,
   questions = null;
-
+let points = 0;
 let nextQuestion = 0;
 
 async function loadQuizData(subject, question) {
   try {
-    const response = await fetch('/public/data.json');
+    const response = await fetch('/data.json');
     if (!response.ok) throw new Error('Network response was not ok');
     const quizData = await response.json();
 
     ({ title, icon, questions } =
       quizData.quizzes.find(element => element.title === subject) || {});
 
-    popoulateTitle(title);
+    populateTitle(title);
     populateIcon(icon, title);
     populateQuestion(questions, question);
     populateOptions(questions, question);
+    populateProgress(1, questions);
+    updateRangeBackground(nextQuestion + 1, 0, questions.length);
   } catch (error) {
     console.log('Error fetching data:', error);
   }
 }
 
-loadQuizData('JavaScript', nextQuestion); //TODO: replace with variable
+const params = new URLSearchParams(window.location.search);
+const subject = params.get('subject');
 
-function popoulateTitle(title) {
+loadQuizData(subject, nextQuestion); //TODO: replace with variable
+
+function populateTitle(title) {
   const header = document.querySelector('.header__topic-name');
   header.textContent = title;
 }
@@ -73,6 +76,13 @@ function populateOptions(questions, currentQuestion) {
   optionElements.forEach((element, index) => {
     element.textContent = questions[currentQuestion].options[index];
   });
+}
+
+function populateProgress(number, questions) {
+  const progressElement = document.querySelector('.main__progress');
+  let current = number;
+  let total = questions.length;
+  progressElement.textContent = `Question ${current} of ${total}`;
 }
 
 //Validate the form when submitted
@@ -109,29 +119,30 @@ function validateForm(e) {
   const checkedRadioIcon =
     checkedRadioLabel.querySelector('.main__option-icon');
 
-  //Correct elemnts
+  //Correct option elements
 
   const correctAnswer = questions[nextQuestion].answer;
   const correctIndex = questions[nextQuestion].options.findIndex(
     option => option === questions[nextQuestion].answer
   );
-
   const optionElements = document.querySelectorAll('.main__option-btn');
   const optionLetter = document.querySelectorAll('.main__option-letter');
   const messageIcon = document.querySelectorAll('.main__option-icon');
-
   const correctElement = optionElements[correctIndex];
   const correctLetter = optionLetter[correctIndex];
   let correctIcon = messageIcon[correctIndex];
 
+  //Other elements
+
   if (isSubmitMode) {
     //Validation logic
-    console.log(answer, correctAnswer);
+
     if (answer === correctAnswer) {
       correctElement.classList.add('main__option-btn--correct');
       correctLetter.classList.add('main__option-letter--correct');
       correctIcon.style.backgroundImage =
         "url('./src/images/icon-correct.svg')";
+      points += 1;
     } else {
       checkedRadioButton.classList.add('main__option-btn--incorrect');
       checkedRadioLetter.classList.add('main__option-letter--incorrect');
@@ -142,7 +153,9 @@ function validateForm(e) {
         "url('./src/images/icon-incorrect.svg')";
     }
 
-    submitButton.textContent = 'Next Question';
+    nextQuestion === 9
+      ? (submitButton.textContent = 'Finish Quiz')
+      : (submitButton.textContent = 'Next Question');
 
     //Remove error message
     errorMessage.classList.add('hidden');
@@ -150,6 +163,7 @@ function validateForm(e) {
   } else {
     //Load next question
     const numberOfQuestions = questions.length;
+    console.log(numberOfQuestions);
     nextQuestion += 1;
 
     //Reset UI for new question
@@ -157,8 +171,18 @@ function validateForm(e) {
     correctIcon.style.backgroundImage = '';
     checkedRadioIcon.style.backgroundImage = '';
 
+    if (nextQuestion >= numberOfQuestions) {
+      // window.open('score.html', '_blank');
+      window.location.href = `score.html?subject=${encodeURIComponent(
+        subject
+      )}&score=${points}&total=${numberOfQuestions}`;
+      return;
+    }
+
     populateQuestion(questions, nextQuestion);
     populateOptions(questions, nextQuestion);
+    populateProgress(nextQuestion + 1, questions);
+    updateRangeBackground(nextQuestion + 1, 0, questions.length);
 
     submitButton.textContent = 'Submit Answer';
     isSubmitMode = true;
@@ -178,7 +202,6 @@ function resetUI() {
   });
 
   document.querySelectorAll('.main__option-letter').forEach(letter => {
-    console.log(letter);
     letter.classList.remove(
       'main__option-letter--correct',
       'main__option-letter--incorrect'
@@ -193,3 +216,5 @@ function resetUI() {
   //Hide error messages
   document.querySelector('main-error')?.classList.add('hidden');
 }
+
+//Pass score onto score.html

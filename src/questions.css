@@ -223,6 +223,10 @@
 }
 
 @media (min-width: 768px) {
+  .header__topic {
+    gap: 24px;
+  }
+
   .header__topic-name {
     font-size: 28px;
   }
