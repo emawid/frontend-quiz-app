@@ -13,8 +13,28 @@ function populateIcon(icon, title) {
 function themeToggle() {
   const toggle = document.querySelector('#theme-toggle');
 
+  //On page load, set theme from localStorage
+  const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    toggle.checked = true;
+  } else {
+    document.body.classList.remove('dark');
+    toggle.checked = false;
+  }
+
+  //Listen for toggle changes
   toggle.addEventListener('change', () => {
     document.body.classList.toggle('dark', toggle.checked);
+
+    if (toggle.checked) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.removeItem('dark');
+    }
   });
 }
 
