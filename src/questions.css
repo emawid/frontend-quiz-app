@@ -1,7 +1,5 @@
 /* Header */
 
-
-
 .header--question {
   justify-content: space-between;
 }
@@ -159,6 +157,18 @@
 
 .main__option-btn:hover {
   cursor: pointer;
+}
+
+.toggle__checkbox:focus + .toggle__label {
+  outline: 3px solid var(--red-500);
+}
+
+/* .main__option:focus-within .main__option-btn {
+  outline: 3px solid var(--purple-600);
+} */
+
+.main__option-radio:focus + .main__option-btn {
+  outline: 3px solid var(--purple-600);
 }
 
 .main__option-btn:hover,

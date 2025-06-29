@@ -137,7 +137,7 @@ function validateForm(e) {
         "url('./src/images/icon-incorrect.svg')";
     }
 
-    nextQuestion === 9
+    nextQuestion === questions.length
       ? (submitButton.textContent = 'Finish Quiz')
       : (submitButton.textContent = 'Next Question');
 
