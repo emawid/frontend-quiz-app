@@ -26,7 +26,7 @@ let nextQuestion = 0;
 
 async function loadQuizData(subject, question) {
   try {
-    const response = await fetch('/data.json');
+    const response = await fetch('./data.json');
     if (!response.ok) throw new Error('Network response was not ok');
     const quizData = await response.json();
 

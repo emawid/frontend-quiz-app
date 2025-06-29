@@ -14,7 +14,7 @@ console.log(score, total, subject);
 //update UI with quiz subject and score
 
 async function loadScoreData(subject) {
-  const response = await fetch('/data.json');
+  const response = await fetch('./data.json');
   const data = await response.json();
   const quiz = data.quizzes.find(q => q.title === subject);
   console.log(quiz);
